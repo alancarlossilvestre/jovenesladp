@@ -25,3 +25,8 @@ playwright-report
 *.njsproj
 *.sln
 *.sw?
+
+.agents
+architecture-docs
+test
+admin
