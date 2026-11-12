@@ -26,7 +26,7 @@ export function Icon({ name, size = 25 }: { name: IconName; size?: number }) {
 export function LogoPlaceholder({ light = false }: { light?: boolean }) {
   return (
     <div className={`logo-placeholder ${light ? 'logo-light' : ''}`} >
-      <img src="/icons/LOGO-LADP.PNG" alt="Logo oficial del Ministerio Nacional de Jóvenes" className="logo-img" />
+      <img src="/icons/LOGO-LADP.png" alt="Logo oficial del Ministerio Nacional de Jóvenes" className="logo-img" />
       <span className="logo-text">Ministerio Nacional de Jóvenes</span>
     </div>
   )

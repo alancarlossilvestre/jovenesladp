@@ -1,9 +1,0 @@
----
-title: "El visitante envía el formulario de contacto (demo)"
----
-sequenceDiagram
-    actor visitante as Joven o líder de otra iglesia
-    participant src_components as src/components
-    visitante->>src_components: Completa nombre, correo, interés y mensaje
-    src_components->>src_components: Cancela el envío real y muestra la confirmación de muestra
-    src_components-->>visitante: Confirmación sin haber enviado nada
