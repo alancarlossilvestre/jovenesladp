@@ -1,0 +1,10 @@
+{
+  "src (files)": [
+    "src/components",
+    "src/data"
+  ],
+  "src/components": [
+    "src/data"
+  ],
+  "src/data": []
+}

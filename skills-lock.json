@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "modern-frontend-architecture": {
+      "source": "Amir-Abushanab/modern-frontend-architecture",
+      "sourceType": "github",
+      "skillPath": "plugin/skills/modern-frontend-architecture/SKILL.md",
+      "computedHash": "f226c31b3dcffc469159c2f1bcb42a1431e626325880beb4e314279dea973b97"
+    },
+    "premium-frontend-ui": {
+      "source": "sourcier/dotfiles",
+      "sourceType": "github",
+      "skillPath": ".copilot/skills/premium-frontend-ui/SKILL.md",
+      "computedHash": "87aa4a773b73b8c0a3cd27dbef92224f56189f72ca088a16a4732ba91ad63ff9"
+    }
+  }
+}

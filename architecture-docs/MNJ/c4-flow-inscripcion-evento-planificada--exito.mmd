@@ -1,0 +1,11 @@
+---
+title: "Inscripción a un evento (planificada, no implementada) · Inscripción registrada"
+---
+sequenceDiagram
+    actor visitante as Joven o líder de otra iglesia
+    participant mnj as Sitio público (demo actual)
+    participant ext_sistema_admin as Sistema de administración (aparte, planificado)
+    visitante->>mnj: Envía el formulario (?)
+    mnj->>ext_sistema_admin: POST /registrations (?) [JSON/HTTPS]
+    ext_sistema_admin-->>mnj: 201 con el id de la inscripción (?)
+    mnj-->>visitante: Confirma la inscripción (?)

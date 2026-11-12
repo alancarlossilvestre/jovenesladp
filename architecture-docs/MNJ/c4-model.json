@@ -1,0 +1,162 @@
+{
+  "system": {
+    "name": "Sitio MNJ (landing pública)",
+    "description": "Landing del Ministerio Nacional de Jóvenes: hero, eventos, ministerios, recursos y contacto. Hoy es una demo estática; está pensada para mostrar contenido publicado desde un sistema de administración aparte."
+  },
+  "people": [
+    {
+      "id": "visitante",
+      "name": "Joven o líder de otra iglesia",
+      "description": "Consulta el hero, los eventos y los recursos, y quiere inscribirse a un evento",
+      "assumption": true
+    },
+    {
+      "id": "editor",
+      "name": "Equipo del ministerio (editor)",
+      "description": "Publica el hero, los eventos, los recursos y revisa las inscripciones desde el sistema aparte",
+      "assumption": true
+    }
+  ],
+  "containers": [
+    {
+      "id": "mnj",
+      "name": "Sitio público (demo actual)",
+      "technology": "React 19, Vite 8, Tailwind 4, GSAP",
+      "description": "SPA estática: todo el contenido está fijo en el código y el formulario no envía datos",
+      "evidence": ["package.json:13", "index.html:9-10", "src/data/content.ts:75"]
+    }
+  ],
+  "external_systems": [
+    {
+      "id": "ext-sistema-admin",
+      "name": "Sistema de administración (aparte, planificado)",
+      "description": "Sistema independiente donde se edita el hero, se crean eventos y recursos y se reciben las inscripciones; el sitio aún no se conecta a él",
+      "evidence": ["README.md:65"],
+      "assumption": true
+    }
+  ],
+  "relationships": [
+    { "from": "visitante", "to": "mnj", "description": "Consulta eventos y recursos en", "technology": "HTTPS", "assumption": true },
+    { "from": "editor", "to": "ext-sistema-admin", "description": "Publica hero, eventos y recursos en", "technology": "HTTPS", "assumption": true },
+    { "from": "mnj", "to": "ext-sistema-admin", "description": "Leerá el contenido publicado y enviará inscripciones a (planificado, no existe en el código)", "technology": "JSON/HTTPS", "assumption": true }
+  ],
+  "components": {
+    "mnj": {
+      "src (files)": "App.tsx compone la página y controla los modales; main.tsx monta React",
+      "src/components": "Hero con carrusel, formulario de contacto, cabecera, animaciones GSAP y piezas de interfaz",
+      "src/data": "content.ts: navegación, hero (slides), ministerios, eventos, recursos y galería escritos a mano"
+    }
+  },
+  "flows": [
+    {
+      "id": "carga-landing",
+      "name": "El visitante abre la landing",
+      "description": "Del HTML vacío a la página pintada con hero, eventos y recursos fijos en el código.",
+      "steps": [
+        { "from": "visitante", "to": "mnj", "description": "Abre el sitio (HTML con solo el div raíz)", "technology": "HTTPS",
+          "evidence": ["index.html:9-10"] },
+        { "from": "src (files)", "to": "src/data", "description": "Importa events, resources, gallery y demás listas",
+          "evidence": ["src/App.tsx:12"] },
+        { "from": "src (files)", "to": "src/components", "description": "Renderiza el Hero",
+          "evidence": ["src/App.tsx:37"] },
+        { "from": "src/components", "to": "src/data", "description": "Lee slides para el carrusel",
+          "evidence": ["src/components/Hero.tsx:3", "src/components/Hero.tsx:44"] },
+        { "from": "src (files)", "to": "visitante", "description": "Página pintada en el navegador", "reply": true,
+          "evidence": ["src/App.tsx:37"] }
+      ],
+      "scenarios": [
+        { "id": "exito", "name": "La página carga", "given": "el JavaScript se descarga y ejecuta",
+          "steps": [
+            { "from": "visitante", "to": "mnj", "description": "Abre el sitio", "technology": "HTTPS",
+              "evidence": ["index.html:9-10"] },
+            { "from": "src (files)", "to": "src/data", "description": "Importa las listas de contenido",
+              "evidence": ["src/App.tsx:12"] },
+            { "from": "src (files)", "to": "src/components", "description": "Renderiza el Hero",
+              "evidence": ["src/App.tsx:37"] },
+            { "from": "src (files)", "to": "visitante", "description": "Página completa", "reply": true,
+              "evidence": ["src/App.tsx:37"] }
+          ] },
+        { "id": "sin-js", "name": "El JavaScript no carga", "given": "falla el bundle, hay JS desactivado o el rastreador de una red social no lo ejecuta",
+          "steps": [
+            { "from": "visitante", "to": "mnj", "description": "Abre el sitio", "technology": "HTTPS",
+              "evidence": ["index.html:9-10"] },
+            { "from": "mnj", "to": "visitante", "description": "Página en blanco: el HTML solo contiene el div raíz", "reply": true,
+              "evidence": ["index.html:9"] }
+          ] }
+      ]
+    },
+    {
+      "id": "formulario-contacto",
+      "name": "El visitante envía el formulario de contacto (demo)",
+      "description": "El envío no sale del navegador: solo cambia un estado local.",
+      "steps": [
+        { "from": "visitante", "to": "src/components", "description": "Completa nombre, correo, interés y mensaje",
+          "evidence": ["src/components/ContactForm.tsx:25-47"] },
+        { "from": "src/components", "to": "src/components", "description": "Cancela el envío real y muestra la confirmación de muestra",
+          "evidence": ["src/components/ContactForm.tsx:25"] },
+        { "from": "src/components", "to": "visitante", "description": "Confirmación sin haber enviado nada", "reply": true,
+          "evidence": ["src/components/ContactForm.tsx:6-15"] }
+      ],
+      "scenarios": [
+        { "id": "exito", "name": "Formulario válido", "given": "todos los campos requeridos están completos",
+          "steps": [
+            { "from": "visitante", "to": "src/components", "description": "Pulsa Probar formulario",
+              "evidence": ["src/components/ContactForm.tsx:25"] },
+            { "from": "src/components", "to": "visitante", "description": "Muestra la confirmación; no hay petición de red", "reply": true,
+              "evidence": ["src/components/ContactForm.tsx:25", "src/components/ContactForm.tsx:6-15"] }
+          ] },
+        { "id": "invalido", "name": "Campo requerido vacío", "given": "falta un campo con required",
+          "steps": [
+            { "from": "visitante", "to": "src/components", "description": "Pulsa Probar formulario",
+              "evidence": ["src/components/ContactForm.tsx:25-47"] },
+            { "from": "src/components", "to": "visitante", "description": "El navegador bloquea el envío y marca el campo", "reply": true,
+              "evidence": ["src/components/ContactForm.tsx:25-47"] }
+          ] }
+      ]
+    },
+    {
+      "id": "inscripcion-evento-planificada",
+      "name": "Inscripción a un evento (planificada, no implementada)",
+      "description": "Flujo objetivo descrito por el usuario: el sitio lee los eventos del sistema aparte y le envía las inscripciones.",
+      "assumption": true,
+      "steps": [
+        { "from": "visitante", "to": "mnj", "description": "Abre un evento y pulsa Inscribirse", "assumption": true },
+        { "from": "mnj", "to": "ext-sistema-admin", "description": "POST de la inscripción con un id UUID generado en el cliente", "technology": "JSON/HTTPS", "assumption": true },
+        { "from": "ext-sistema-admin", "to": "mnj", "description": "Confirmación o error de validación", "reply": true, "assumption": true },
+        { "from": "mnj", "to": "visitante", "description": "Muestra el resultado", "reply": true, "assumption": true }
+      ],
+      "scenarios": [
+        { "id": "exito", "name": "Inscripción registrada", "given": "el evento está abierto y hay cupo", "assumption": true,
+          "steps": [
+            { "from": "visitante", "to": "mnj", "description": "Envía el formulario", "assumption": true },
+            { "from": "mnj", "to": "ext-sistema-admin", "description": "POST /registrations", "technology": "JSON/HTTPS", "assumption": true },
+            { "from": "ext-sistema-admin", "to": "mnj", "description": "201 con el id de la inscripción", "reply": true, "assumption": true },
+            { "from": "mnj", "to": "visitante", "description": "Confirma la inscripción", "reply": true, "assumption": true }
+          ] },
+        { "id": "cupo-agotado", "name": "Evento sin cupo o cerrado", "given": "el evento se cerró entre la carga de la página y el envío", "assumption": true,
+          "steps": [
+            { "from": "visitante", "to": "mnj", "description": "Envía el formulario", "assumption": true },
+            { "from": "mnj", "to": "ext-sistema-admin", "description": "POST /registrations", "technology": "JSON/HTTPS", "assumption": true },
+            { "from": "ext-sistema-admin", "to": "mnj", "description": "409 evento cerrado o sin cupo", "reply": true, "assumption": true },
+            { "from": "mnj", "to": "visitante", "description": "Avisa que ya no hay inscripciones", "reply": true, "assumption": true }
+          ] }
+      ]
+    }
+  ],
+  "summary": {
+    "overview": "El repositorio es una demo de la landing del Ministerio Nacional de Jóvenes: una SPA de React y Vite sin backend donde hero, eventos, ministerios y recursos están escritos a mano en `src/data/content.ts`. El objetivo es que un sistema de administración aparte controle el hero, los eventos (con inscripción) y los recursos para otras iglesias. Esa conexión hoy es solo una nota del README. El diagrama modela el estado actual y marca como suposición todo lo que viene de ese objetivo; la propuesta detallada está en ArchitectureReview.md.",
+    "findings": [
+      "Hero, eventos y recursos están fijos en el código (`src/data/content.ts:75`, `src/data/content.ts:114`, `src/data/content.ts:141`): cambiar un anuncio exige modificar el código y volver a desplegar.",
+      "El hero solo tiene imagen, textos y un destino (`src/data/content.ts:114-139`): no existe un campo para colores ni para elegir la estructura, que son parte del requisito.",
+      "El HTML publicado solo contiene el div raíz (`index.html:9`): sin JavaScript no hay contenido, y los enlaces compartidos en redes no tendrían vista previa por evento.",
+      "Eventos y recursos se abren en modales sin URL propia (`src/App.tsx:26`, `src/App.tsx:177`): no se puede compartir ni indexar un evento concreto.",
+      "El formulario no envía nada (`src/components/ContactForm.tsx:25`): no hay una inscripción real ni un destino definido para los datos.",
+      "La conexión con un CMS es solo una nota (`README.md:65`): no hay contrato de datos ni de autenticación entre el sitio y el sistema aparte."
+    ],
+    "recommendations": [
+      "Pasar a Astro con islas de React y publicar `/eventos/[slug]` y `/recursos/[slug]` como páginas propias, para resolver los hallazgos de HTML vacío y de modales sin URL.",
+      "Definir un contrato de contenido tipado (hero, evento, recurso) con zod y OpenAPI, y que el sitio lo lea en el build en vez de importar `content.ts`.",
+      "Definir el endpoint de inscripciones en el sistema aparte, con id generado en el cliente, validación de Origin, límite de tasa y captcha, y conectarlo al formulario."
+    ]
+  }
+}

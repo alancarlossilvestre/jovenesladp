@@ -1,0 +1,8 @@
+---
+title: "El visitante envía el formulario de contacto (demo) · Campo requerido vacío"
+---
+sequenceDiagram
+    actor visitante as Joven o líder de otra iglesia
+    participant src_components as src/components
+    visitante->>src_components: Pulsa Probar formulario
+    src_components-->>visitante: El navegador bloquea el envío y marca el campo

@@ -1,0 +1,23 @@
+---
+title: "Sitio MNJ (landing pública) · Containers"
+---
+flowchart TB
+    visitante("Joven o líder de otra iglesia<br/>[Person]<br/>Consulta el hero, los eventos y<br/>los recursos, y quiere inscribirse<br/>a un evento")
+    editor("Equipo del ministerio (editor)<br/>[Person]<br/>Publica el hero, los eventos, los<br/>recursos y revisa las<br/>inscripciones desde el sistema<br/>aparte")
+    subgraph boundary["Sitio MNJ (landing pública) [Software System]"]
+        mnj["Sitio público (demo actual)<br/>[Container: React 19, Vite 8, Tailwind 4, GSAP]<br/>SPA estática: todo el contenido<br/>está fijo en el código y el<br/>formulario no envía datos"]
+    end
+    ext_sistema_admin["Sistema de administración (aparte, planificado)<br/>[Software System]<br/>Sistema independiente donde se<br/>edita el hero, se crean eventos y<br/>recursos y se reciben las<br/>inscripciones; el sitio aún no se<br/>conecta a él"]
+    visitante -->|"Consulta eventos y recursos<br/>en<br/>[HTTPS]"| mnj
+    editor -->|"Publica hero, eventos y<br/>recursos en<br/>[HTTPS]"| ext_sistema_admin
+    mnj -->|"Leerá el contenido publicado<br/>y enviará inscripciones a<br/>(planificado, no existe en<br/>el código)<br/>[JSON/HTTPS]"| ext_sistema_admin
+    classDef person fill:#08427b,stroke:#052e56,color:#ffffff
+    classDef container fill:#1168bd,stroke:#0b4884,color:#ffffff
+    classDef system fill:#1168bd,stroke:#0b4884,color:#ffffff
+    classDef component fill:#85bbf0,stroke:#5d82a8,color:#000000
+    classDef external fill:#999999,stroke:#6b6b6b,color:#ffffff
+    classDef shared fill:#dbe9f6,stroke:#5d82a8,color:#000000,stroke-dasharray:4 3
+    class visitante,editor person
+    class mnj container
+    class ext_sistema_admin external
+    style boundary fill:none,stroke:#444444,stroke-dasharray:6 4

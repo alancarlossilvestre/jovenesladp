@@ -1,0 +1,41 @@
+{
+  "solutions": [],
+  "projects": [
+    {
+      "name": "src (files)",
+      "path": "src",
+      "group": "",
+      "ecosystem": "Node.js",
+      "in_solution": null,
+      "duplicate_name": false,
+      "inferred": false
+    },
+    {
+      "name": "src/components",
+      "path": "src/components",
+      "group": "",
+      "ecosystem": "Node.js",
+      "in_solution": null,
+      "duplicate_name": false,
+      "inferred": false
+    },
+    {
+      "name": "src/data",
+      "path": "src/data",
+      "group": "",
+      "ecosystem": "Node.js",
+      "in_solution": null,
+      "duplicate_name": false,
+      "inferred": false
+    }
+  ],
+  "orphan_projects": [],
+  "duplicate_project_names": [],
+  "folders": [
+    "architecture-docs",
+    "public",
+    "src",
+    "test-results",
+    "tests"
+  ]
+}

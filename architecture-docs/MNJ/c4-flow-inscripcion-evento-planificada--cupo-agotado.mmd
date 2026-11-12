@@ -1,0 +1,11 @@
+---
+title: "Inscripción a un evento (planificada, no implementada) · Evento sin cupo o cerrado"
+---
+sequenceDiagram
+    actor visitante as Joven o líder de otra iglesia
+    participant mnj as Sitio público (demo actual)
+    participant ext_sistema_admin as Sistema de administración (aparte, planificado)
+    visitante->>mnj: Envía el formulario (?)
+    mnj->>ext_sistema_admin: POST /registrations (?) [JSON/HTTPS]
+    ext_sistema_admin-->>mnj: 409 evento cerrado o sin cupo (?)
+    mnj-->>visitante: Avisa que ya no hay inscripciones (?)

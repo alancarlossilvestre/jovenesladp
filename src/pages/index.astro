@@ -1,0 +1,15 @@
+---
+import App from '../App'
+import Base from '../layouts/Base.astro'
+import { loadSiteContent } from '../lib/site-content'
+
+// Panel de administración: se lee al compilar. Sin variable, se usa el contenido local.
+const content = await loadSiteContent(import.meta.env.PUBLIC_ADMIN_API_URL)
+---
+
+<Base
+  title="Ministerio Nacional de Jóvenes | Una generación con propósito"
+  description="Una misma visión. Una generación transformada. Conoce la demo del sitio del Ministerio Nacional de Jóvenes de las Asambleas de Dios del Perú."
+>
+  <App client:load content={content} />
+</Base>

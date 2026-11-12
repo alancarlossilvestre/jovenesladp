@@ -1,0 +1,10 @@
+---
+title: "MNJ · Project dependency graph"
+---
+graph TD
+    src__files["src (files)"]
+    src_components["src/components"]
+    src_data["src/data"]
+    src__files --> src_components
+    src__files --> src_data
+    src_components --> src_data

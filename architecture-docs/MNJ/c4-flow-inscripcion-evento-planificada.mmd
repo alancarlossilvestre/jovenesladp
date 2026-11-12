@@ -1,0 +1,11 @@
+---
+title: "Inscripción a un evento (planificada, no implementada)"
+---
+sequenceDiagram
+    actor visitante as Joven o líder de otra iglesia
+    participant mnj as Sitio público (demo actual)
+    participant ext_sistema_admin as Sistema de administración (aparte, planificado)
+    visitante->>mnj: Abre un evento y pulsa Inscribirse (?)
+    mnj->>ext_sistema_admin: POST de la inscripción con un id UUID generado en el cliente (?) [JSON/HTTPS]
+    ext_sistema_admin-->>mnj: Confirmación o error de validación (?)
+    mnj-->>visitante: Muestra el resultado (?)

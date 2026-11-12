@@ -1,0 +1,14 @@
+{
+  "name": "mnj-admin",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Sistema de administración independiente del sitio MNJ: hero, eventos, recursos e inscripciones.",
+  "engines": { "node": ">=22.13" },
+  "scripts": {
+    "start": "node src/server.mjs",
+    "dev": "node --watch src/server.mjs",
+    "seed": "node src/seed.mjs",
+    "test": "node --test \"test/*.test.mjs\""
+  }
+}
