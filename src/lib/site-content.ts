@@ -22,8 +22,7 @@ export interface SiteContent {
   registrationUrl: string
 }
 
-export const DEFAULT_HERO_DESCRIPTION = 'Tu fe. Tus preguntas. Tus ganas de cambiar el mundo. Aquí caminamos juntos, con Dios en el centro y el propósito por delante.'
-
+export const DEFAULT_HERO_DESCRIPTION = 'La Pastoral Juvenil 2027, LEGADO busca formar y capacitar jóvenes comprometidos con Dios, preparados para servir y transmitir su fe a las próximas generaciones.'
 const ICONS: readonly IconName[] = ['heart', 'compass', 'sparkles', 'music', 'globe', 'users', 'book', 'play']
 const HEX = /^#[0-9a-f]{6}$/i
 

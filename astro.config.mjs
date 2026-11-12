@@ -7,6 +7,7 @@ export default defineConfig({
   base: '/jovenesladp',
   integrations: [react()],
   vite: { plugins: [tailwindcss()] },
+  
   /*integrations: [react()],
   vite: { plugins: [tailwindcss()] },*/
 })

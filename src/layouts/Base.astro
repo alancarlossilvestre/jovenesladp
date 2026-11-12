@@ -17,6 +17,11 @@ const { title, description } = Astro.props
     <meta name="theme-color" content="#06143B" />
     <meta name="description" content={description} />
     <title>{title}</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href={`${import.meta.env.BASE_URL}icons/LOGO-LADP.png`}
+    />
   </head>
   <body>
     <slot />

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import type { CSSProperties } from 'react'
 import { ArrowDown, ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
 import type { HeroContent } from '../lib/site-content'
-import { Burst } from './Burst'
+/*import { Burst } from './Burst'*/
 import { SectionLabel } from './ui'
 
 const href = (target: string) => (/^(https?:\/\/|\/)/.test(target) ? target : `#${target}`)
@@ -87,9 +87,9 @@ export function Hero({ hero }: { hero: HeroContent }) {
           <div className="hero-copy container">
             <SectionLabel light>MINISTERIO NACIONAL DE JÓVENES / LADP</SectionLabel> 
             <h1>
-              <span className="hero-vision"><span data-hero-word>Una misma visión.</span></span>
-              <span className="hero-title-line"><span data-hero-word>Una </span><span data-hero-word>generación</span></span>
-              <span className="hero-title-mark"><span data-hero-word>transformada.</span><svg viewBox="0 0 760 28" preserveAspectRatio="none" aria-hidden="true"><path d="M4 20C190 3 510 3 752 10M270 25C450 13 600 12 710 19" /></svg></span>
+              <span className="hero-vision"><span data-hero-word>Inscripciones Abiertas.</span></span>
+              <span className="hero-title-line"><span data-hero-word>La </span><span data-hero-word>Pastoral</span></span>
+              <span className="hero-title-mark"><span data-hero-word>Legado.</span><svg viewBox="0 0 760 28" preserveAspectRatio="none" aria-hidden="true"><path d="M4 20C190 3 510 3 752 10M270 25C450 13 600 12 710 19" /></svg></span>
             </h1>
             <p>{hero.description}</p>
             <div className="hero-actions flex flex-wrap gap-3">
@@ -102,10 +102,10 @@ export function Hero({ hero }: { hero: HeroContent }) {
             </div>
           </div>
 
-          <div className="hero-orbit" aria-hidden="true">
+          {/*<div className="hero-orbit" aria-hidden="true">
             <svg viewBox="0 0 160 160"><defs><path id="hero-orbit-path" d="M80 80m-61 0a61 61 0 1 1 122 0a61 61 0 1 1-122 0" /></defs><text><textPath href="#hero-orbit-path" textLength="381">JUNTOS POR ALGO MÁS · FE EN MOVIMIENTO · </textPath></text></svg>
             <Burst />
-          </div>
+          </div>*/}
           <div className="hero-margin-note" aria-hidden="true"><span>FE REAL.<br />VIDA REAL.</span></div>
         </div>
 
