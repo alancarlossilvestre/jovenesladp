@@ -6,7 +6,7 @@ const WHATSAPP_NUMBER = '51984765067' // código de país + número, sin +, espa
 const WHATSAPP_MESSAGE = 'Hola, me gustaría recibir más información sobre la pastoral 2027'
 
 
-export function Header({ onConnect }: { onConnect: () => void }) {
+export function Header(/*{ onConnect }: { onConnect: () => void }*/) {
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState('inicio')
   const [hidden, setHidden] = useState(false)

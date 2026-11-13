@@ -26,8 +26,6 @@ type ActiveModal =
   | { type: 'contact' | 'events' | 'socials' }
 
 const currentYear = new Date().getFullYear()
-const WHATSAPP_NUMBER = '51984765067' // código de país + número, sin +, espacios ni guiones
-const WHATSAPP_MESSAGE = 'Hola, me gustaría recibir más información sobre la pastoral 2027'
 
 function App({ content }: { content: SiteContent }) {
   const { events, resources } = content
@@ -41,7 +39,7 @@ function App({ content }: { content: SiteContent }) {
     <>
       <a className="skip-link" href="#contenido">Saltar al contenido</a>
       <MotionExperience root={mainRef} />
-      <Header onConnect={connect} />
+      <Header /*onConnect={connect} *//>
       <main id="contenido" ref={mainRef} tabIndex={-1}>
         <Hero hero={content.hero} />
 
@@ -289,7 +287,3 @@ function getModalTitle(modal: ActiveModal) {
 }
 
 export default App
-const openWhatsApp = () => {
-  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`
-  window.open(url, '_blank', 'noopener,noreferrer')
-}
