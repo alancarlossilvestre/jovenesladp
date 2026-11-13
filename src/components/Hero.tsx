@@ -6,6 +6,8 @@ import type { HeroContent } from '../lib/site-content'
 import { SectionLabel } from './ui'
 
 const href = (target: string) => (/^(https?:\/\/|\/)/.test(target) ? target : `#${target}`)
+const WHATSAPP_NUMBER = '51984765067' // código de país + número, sin +, espacios ni guiones
+const WHATSAPP_MESSAGE = 'Hola, me gustaría recibir más información sobre la pastoral 2027'
 
 export function Hero({ hero }: { hero: HeroContent }) {
   const { slides, theme } = hero
@@ -93,11 +95,17 @@ export function Hero({ hero }: { hero: HeroContent }) {
             </h1>
             <p>{hero.description}</p>
             <div className="hero-actions flex flex-wrap gap-3">
-              <a href="#nosotros" className="button button-orange" data-magnetic>
-                Conocenos<ArrowUpRight size={20} aria-hidden="true" />
+              <a
+                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`}
+                className="button button-orange"
+                data-magnetic
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Contáctanos<ArrowUpRight size={20} aria-hidden="true" />
               </a>
               <a href="#eventos" className="button button-outline">
-                Próximos eventos<ArrowRight size={19} aria-hidden="true" />
+                Inscribirme<ArrowRight size={19} aria-hidden="true" />
               </a>
             </div>
           </div>

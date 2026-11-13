@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import { ArrowUpRight, Menu, X } from 'lucide-react'
 import { navigation } from '../data/content'
 import { LogoPlaceholder } from './ui'
+const WHATSAPP_NUMBER = '51984765067' // código de país + número, sin +, espacios ni guiones
+const WHATSAPP_MESSAGE = 'Hola, me gustaría recibir más información sobre la pastoral 2027'
+
 
 export function Header({ onConnect }: { onConnect: () => void }) {
   const [open, setOpen] = useState(false)
@@ -77,11 +80,20 @@ export function Header({ onConnect }: { onConnect: () => void }) {
               <span className="nav-preview" aria-hidden="true"><img src={item.image} alt="" width="210" height="135" /><span>{item.label}<ArrowUpRight size={16} /></span></span>
             </a>
           ))}
-          <button type="button" className="button button-orange mobile-connect" onClick={() => { setOpen(false); onConnect() }}>Contáctanos<ArrowUpRight size={17} /></button>
-        </nav>
-        <button type="button" className="button button-orange desktop-connect" onClick={onConnect}>Contáctanos<ArrowUpRight size={17} aria-hidden="true" /></button>
+          <button type="button" className="button button-orange mobile-connect" onClick={() => { setOpen(false); openWhatsApp() }}>
+            Contáctanos<ArrowUpRight size={17} />
+          </button>
+          </nav>
+
+          <button type="button" className="button button-orange desktop-connect" onClick={openWhatsApp}>
+            Contáctanos<ArrowUpRight size={17} aria-hidden="true" />
+          </button>
         <button ref={toggleRef} className="menu-toggle icon-button" type="button" aria-controls="main-navigation" aria-expanded={open} aria-label={open ? 'Cerrar menú' : 'Abrir menú'} onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</button>
       </div>
     </header>
   )
+}
+const openWhatsApp = () => {
+  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`
+  window.open(url, '_blank', 'noopener,noreferrer')
 }

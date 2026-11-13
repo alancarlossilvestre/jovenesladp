@@ -5,8 +5,17 @@ import path from 'node:path';
 const DIST = './dist';
 const BASE = '/jovenesladp';
 
+const EXTENSIONS = /\.(html|css|js|mjs)$/i;
+
 function processDirectory(directory) {
-  const entries = fs.readdirSync(directory, { withFileTypes: true });
+  if (!fs.existsSync(directory)) {
+    console.error(`No existe el directorio: ${directory}`);
+    process.exit(1);
+  }
+
+  const entries = fs.readdirSync(directory, {
+    withFileTypes: true,
+  });
 
   for (const entry of entries) {
     const filePath = path.join(directory, entry.name);
@@ -16,19 +25,20 @@ function processDirectory(directory) {
       continue;
     }
 
-    if (!/\.(html|css|js|mjs)$/.test(entry.name)) continue;
+    if (!EXTENSIONS.test(entry.name)) continue;
 
     let content = fs.readFileSync(filePath, 'utf8');
 
+    // Evitar duplicar el prefijo si ya existe.
     content = content.replace(
-      /(["'(=])\/(images|icons)\//g,
+      /(["'(=])\/(?!jovenesladp\/)(images|icons)\//g,
       `$1${BASE}/$2/`
     );
 
-    fs.writeFileSync(filePath, content);
+    fs.writeFileSync(filePath, content, 'utf8');
   }
 }
 
 processDirectory(DIST);
 
-console.log('Rutas de imágenes e iconos ajustadas para GitHub Pages.');
+console.log('Rutas ajustadas correctamente para GitHub Pages.');
